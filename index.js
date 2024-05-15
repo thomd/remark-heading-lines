@@ -9,17 +9,8 @@ export default options =>  {
       transformations.push(
         Promise.resolve(transform).then(async transform => {
           if (transform) {
-            const codeChildren =
-              node.data && node.data.hChildren ||
-              [{
-                type: 'text',
-                value: node.value
-              }];
-            const codeProperties =
-              node.data && node.data.hProperties ||
-              (node.lang ? {
-                className: ['language-' + node.lang]
-              } : {});
+            const codeChildren = node.data && node.data.hChildren || [{ type: 'text', value: node.value }];
+            const codeProperties = node.data && node.data.hProperties || (node.lang ? { className: ['language-' + node.lang] } : {})
             const n = node
             n.type = 'code-extra'
             if (!n.data) n.data = {}
@@ -50,10 +41,9 @@ export default options =>  {
         })
       )
     })
-
     await Promise.all(transformations);
     return tree
-  };
+  }
 
   return transformer
 }

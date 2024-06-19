@@ -1,8 +1,11 @@
 # remark-headline-ranges
 
-[remark][remark] plugin which which generates ...
+[remark][remark] plugin which which generates additional metadata within the `mdast` at each `heading` type containing the start- and end-line of each headline section within the source markdown file respecting the headline hierarchy.
 
-Primary usecase for this plugin is to generate Wikipedia-like edit links besides each section headline.
+Primary usecase for this plugin is to generate Wikipedia-like edit links besides each section headline, see example below.
+
+> [!CAUTION]
+> This plugin is still in development and does not work properly
 
 ## Use
 

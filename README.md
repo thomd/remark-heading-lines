@@ -20,6 +20,10 @@ some text
 
 some text
 
+### Level 3 Headline 1
+
+some text
+
 ## Level 2 Headline 2
 
 some text
@@ -40,6 +44,7 @@ import { read } from 'to-vfile'
 
 const file = await remark()
     .use(remarkHeadlineRanges, {
+        depth: 2, 
         tag: 'a', 
         attribute: 'href', 
         pattern: 'edit_lines_{start}-{end}', 
@@ -55,13 +60,15 @@ console.log(file.value)
 then running `node example.js` yields:
 
 ```html
-<h1>Level 1 Headline 1<a href="edit_lines_1-12">edit</a></h1>
+<h1>Level 1 Headline 1<a href="edit_lines_1-16">edit</a></h1>
 <p>some text</p>
-<h2>Level 2 Headline 1<a href="edit_lines_5-8">edit</a></h2>
+<h2>Level 2 Headline 1<a href="edit_lines_5-12">edit</a></h2>
 <p>some text</p>
-<h2>Level 2 Headline 2<a href="edit_lines_9-12">edit</a></h2>
+<h3>Level 3 Headline 1</h3>
 <p>some text</p>
-<h1>Level 1 Headline 2<a href="edit_lines_13-15">edit</a></h1>
+<h2>Level 2 Headline 2<a href="edit_lines_13-16">edit</a></h2>
+<p>some text</p>
+<h1>Level 1 Headline 2<a href="edit_lines_17-19">edit</a></h1>
 <p>some text</p>
 ```
 

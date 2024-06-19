@@ -1,7 +1,7 @@
 {
-  "name": "remark-headlines-edit",
+  "name": "remark-headline-ranges",
   "version": "0.1.0",
-  "description": "Add a mediawiki-like edit link after each headline",
+  "description": "Add a wikipedia-like edit link after each headline",
   "keywords": [
     "remark-plugin",
     "remark"
@@ -10,6 +10,8 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
+    "mdast-util-to-string": "^4.0.0",
+    "unist-util-find-after": "^5.0.0",
     "unist-util-visit": "^5.0.0"
   }
 }

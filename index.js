@@ -1,50 +1,45 @@
 import { visit } from 'unist-util-visit'
+import { toString } from 'mdast-util-to-string'
+import { findAfter } from 'unist-util-find-after'
 
-export default options =>  {
-
-  const transformer = async (tree, _file) => {
-    let transformations = []
-    visit(tree, 'code', node => {
-      const transform = typeof options.transform === 'function' ? options.transform(node) : options.transform
-      transformations.push(
-        Promise.resolve(transform).then(async transform => {
-          if (transform) {
-            const codeChildren = node.data && node.data.hChildren || [{ type: 'text', value: node.value }];
-            const codeProperties = node.data && node.data.hProperties || (node.lang ? { className: ['language-' + node.lang] } : {})
-            const n = node
-            n.type = 'code-extra'
-            if (!n.data) n.data = {}
-            const before = transform.before ? await Promise.resolve(transform.before) : []
-            const after = transform.after ? await Promise.resolve(transform.after) : []
-            const children = [
-              ...before,
-              {
-                type: 'element',
-                tagName: 'pre',
-                children: [
-                  {
-                    type: 'element',
-                    tagName: 'code',
-                    properties: codeProperties,
-                    children: codeChildren
-                  }
-                ]
-              },
-              ...after
-            ]
-            n.data.hName = 'div'
-            n.data.hProperties = {className: ['code-extra']}
-            n.data.hChildren = children
-            if (transform.transform)
-              return transform.transform(n)
-          }
+const remarkHeadlineRanges = () => {
+    return (tree) => {
+        const findHeadingSectionEnd = (node, index, parent, depth) => {
+            let nextHeading = findAfter(parent, index, { type: 'heading', depth: depth })
+            if (nextHeading != undefined) {
+                node.hierarchy.end.line = nextHeading.position.end.line - 1
+            } else {
+                depth = depth - 1
+                if (depth == 0) {
+                    nextHeading = parent.children.at(-1)
+                    node.hierarchy.end.line = nextHeading.position.end.line
+                } else {
+                    findHeadingSectionEnd(node, index, parent, depth)
+                }
+            }
+        }
+        visit(tree, 'heading', (node, index, parent) => {
+            node.hierarchy = { start: {}, end: {} }
+            let { depth } = node
+            node.hierarchy.start.line = node.position.start.line
+            let nextHeading = findAfter(parent, index, {type:'heading', depth:depth})
+            if (nextHeading != undefined) {
+                node.hierarchy.end.line = nextHeading.position.end.line - 1
+            } else {
+                nextHeading = findAfter(parent, index, {type:'heading', depth:depth - 1})
+                if (nextHeading != undefined) {
+                    node.hierarchy.end.line = nextHeading.position.end.line - 1
+                } else {
+                    nextHeading = parent.children.at(-1)
+                    node.hierarchy.end.line = nextHeading.position.end.line
+                }
+            }
         })
-      )
-    })
-    await Promise.all(transformations);
-    return tree
-  }
-
-  return transformer
+        visit(tree, 'heading', (node, index, parent) => {
+            console.log(toString(node), node.hierarchy.start.line, node.hierarchy.end.line)
+        })
+    }
 }
+export default remarkHeadlineRanges
+
 

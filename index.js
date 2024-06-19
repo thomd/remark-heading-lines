@@ -4,8 +4,8 @@ import { findAfter } from 'unist-util-find-after'
 
 const remarkHeadlineRanges = () => {
     return (tree) => {
-        const findHeadingSectionEnd = (node, index, parent, depth) => {
-            let nextHeading = findAfter(parent, index, { type: 'heading', depth: depth })
+        const setHeadingSectionEnd = (node, index, parent, depth) => {
+            let nextHeading = findAfter(parent, index, node => node.type == 'heading' && node.depth <= depth)
             if (nextHeading != undefined) {
                 node.hierarchy.end.line = nextHeading.position.end.line - 1
             } else {
@@ -14,7 +14,7 @@ const remarkHeadlineRanges = () => {
                     nextHeading = parent.children.at(-1)
                     node.hierarchy.end.line = nextHeading.position.end.line
                 } else {
-                    findHeadingSectionEnd(node, index, parent, depth)
+                    setHeadingSectionEnd(node, index, parent, depth)
                 }
             }
         }
@@ -22,18 +22,7 @@ const remarkHeadlineRanges = () => {
             node.hierarchy = { start: {}, end: {} }
             let { depth } = node
             node.hierarchy.start.line = node.position.start.line
-            let nextHeading = findAfter(parent, index, {type:'heading', depth:depth})
-            if (nextHeading != undefined) {
-                node.hierarchy.end.line = nextHeading.position.end.line - 1
-            } else {
-                nextHeading = findAfter(parent, index, {type:'heading', depth:depth - 1})
-                if (nextHeading != undefined) {
-                    node.hierarchy.end.line = nextHeading.position.end.line - 1
-                } else {
-                    nextHeading = parent.children.at(-1)
-                    node.hierarchy.end.line = nextHeading.position.end.line
-                }
-            }
+            setHeadingSectionEnd(node, index, parent, depth)
         })
         visit(tree, 'heading', (node, index, parent) => {
             console.log(toString(node), node.hierarchy.start.line, node.hierarchy.end.line)
@@ -41,5 +30,4 @@ const remarkHeadlineRanges = () => {
     }
 }
 export default remarkHeadlineRanges
-
 

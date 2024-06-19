@@ -39,10 +39,15 @@ import rehypeStringify from 'rehype-stringify'
 import { read } from 'to-vfile'
 
 const file = await remark()
-  .use(remarkHeadlineRanges, {tag: 'a', attribute: 'href', pattern: 'edit_lines_{start}-{end}', text: 'edit'})
-  .use(remarkRehype)
-  .use(rehypeStringify)
-  .process(await read('example.md'))
+    .use(remarkHeadlineRanges, {
+        tag: 'a', 
+        attribute: 'href', 
+        pattern: 'edit_lines_{start}-{end}', 
+        text: 'edit'
+    })
+    .use(remarkRehype)
+    .use(rehypeStringify)
+    .process(await read('example.md'))
 
 console.log(file.value)
 ```

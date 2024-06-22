@@ -3,7 +3,7 @@ on:
   - pull_request
   - push
 jobs:
-  main:
+  plugin-test:
     name: ${{matrix.node}}
     runs-on: ubuntu-latest
     steps:

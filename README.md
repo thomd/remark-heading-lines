@@ -72,7 +72,7 @@ then running `node example.js` yields:
 The default export is `remarkHeadlineRanges`.
 
 ```
-unified().use(remarkHeadlineRanges[, options])`
+unified().use(remarkHeadlineRanges[, options])
 ```
 
 ### Options

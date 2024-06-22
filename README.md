@@ -4,7 +4,7 @@
 
 My primary usecase for this plugin is to generate **Wikipedia**-like **edit** links besides each section headline (see example below).
 
-## Use
+## Usage
 
 Say we have the following file `example.md`:
 
@@ -66,6 +66,23 @@ then running `node example.js` yields:
 <h1>Level 1 Headline 2<a href="edit?range=17-19">[ edit ]</a></h1>
 <p>some text</p>
 ```
+
+## API
+
+The default export is `remarkHeadlineRanges`.
+
+```
+unified().use(remarkHeadlineRanges[, options])`
+```
+
+### Options
+
+* `maxDepth` (`integer`, optional) — maximum depth of headline hierarchy. Default value is `6`
+
+* `urlPattern` (`strign`, optional) - pattern to generate the link. Placeholders are `{start}` and `{end}`. Default pattern is `edit/{start}/{end}`
+
+* `linkText` (`string`, optional) - text used for the link. Default is `Edit`
+
 
 [remark]: https://github.com/remarkjs/remark
 

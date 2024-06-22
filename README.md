@@ -2,7 +2,9 @@
 
 ![Build][build-badge]
 
-`remark-headline-edit` is a [remark][remark] plugin which generates links after each `heading` type containing the start- and end-line of each headline section respecting its hierarchy.
+`remark-headline-edit` is a [remark][remark] plugin which generates links after each `heading` type containing the start- and end-line of each headline section respecting its hierarchy. The lines are related to the source markdown file, not the the target markdown file.
+
+This plugin is primarily intended to be used together with `remark-rehype` as markdown does not allow sophisticated positioning of the edit-link.
 
 An exemplary usecase for this plugin is to generate **wikipedia**-like **edit** links besides each headline (see example below).
 
@@ -43,6 +45,7 @@ import { read } from 'to-vfile'
 
 const file = await remark()
     .use(remarkHeadlineEdit, {
+        position: 'append',
         maxDepth: 2, 
         urlPattern: 'edit?lines={start}-{end}', 
         linkText: '[ edit ]'
@@ -87,12 +90,15 @@ unified().use(remarkHeadlineEdit[, options])
 
 ### Options
 
+* `position` (`string`, optional) - position of the link in the DOM. Possible values are `append` (put link inside `h`-tag at last index), `prepend` (put link inside `h`-tag at first index), `after` (put link after the `h`-tag) and `before` (put link before the `h`-tag). The `after` and `before` positions are wrapped in a `div` tag and require `remark-rehype`. Default is `append`.
+
 * `maxDepth` (`integer`, optional) — maximum depth of headline hierarchy. Default value is `6`
 
 * `urlPattern` (`string`, optional) - pattern to generate the link. Placeholders are `{start}` and `{end}`. Default pattern is `edit/{start}/{end}`
 
 * `linkText` (`string`, optional) - text used for the link. Default is `Edit`
 
+* `wrap` (`boolean`, optional) - wrap headline and link within a `div` tag. Default is `false`.
 
 [remark]: https://github.com/remarkjs/remark
 [build-badge]: https://github.com/thomd/remark-headline-edit/workflows/plugin-test/badge.svg

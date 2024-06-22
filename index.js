@@ -4,6 +4,7 @@ import { findAfter } from 'unist-util-find-after'
 
 const remarkHeadlineEdit = (opts) => {
     const defaultOptions = {
+        position: 'append',
         maxDepth: 6,
         urlPattern: 'edit/{start}/{end}',
         linkText: 'Edit'
@@ -35,17 +36,23 @@ const remarkHeadlineEdit = (opts) => {
         visit(tree, 'heading', (node, index, parent) => {
             let { depth } = node
             if (depth <= options.maxDepth) {
-                const link = {
-                    type: 'link',
-                    url: options.urlPattern.replace('{start}', node.hierarchy.start.line).replace('{end}', node.hierarchy.end.line),
-                    children: [
-                        {
-                            type: 'text',
-                            value: options.linkText
-                        }
-                    ]
+                const url = options.urlPattern.replace('{start}', node.hierarchy.start.line).replace('{end}', node.hierarchy.end.line)
+                const type = 'link'
+                const link = { type, url, children: [{ type: 'text', value: options.linkText }] }
+                if (options.position == 'append') {
+                    node.children.splice(node.children.length, 0, link)
                 }
-                node.children.splice(index + 1, 0, link)
+                if (options.position == 'prepend') {
+                    node.children.splice(0, 0, link)
+                }
+                if (options.position == 'after') {
+                    const wrapper = { type: 'div', data: { hName: 'div', hProperties: { className: 'h' + depth } }, children: [node, link] }
+                    parent.children.splice(index, 1, wrapper)
+                }
+                if (options.position == 'before') {
+                    const wrapper = { type: 'div', data: { hName: 'div', hProperties: { className: 'h' + depth } }, children: [link, node] }
+                    parent.children.splice(index, 1, wrapper)
+                }
             }
         })
     }

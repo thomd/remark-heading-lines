@@ -26,6 +26,9 @@
     "test": "c8 --100 --reporter lcov node --conditions development test/index.js"
   },
   "author": "Thomas Dürr <thomduerr@gmail.com>",
-  "repository": "https://github.com/thomd/remark-headline-edit",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomd/remark-headline-edit.git"
+  },
   "bugs": "https://github.com/thomd/remark-headline-edit/issues"
 }

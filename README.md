@@ -2,9 +2,9 @@
 
 ![Build][build-badge]
 
-[remark][remark] plugin which which generates additional links at each `heading` type containing the start- and end-line of each headline section respecting the headline hierarchy.
+[remark][remark] plugin which which generates additional links at each `heading` type containing the start- and end-line of each headline section respecting its hierarchy.
 
-My primary usecase for this plugin is to generate **Wikipedia**-like **edit** links besides each section headline (see example below).
+An exemplary usecase for this plugin is to generate **wikipedia**-like **edit** links besides each headline (see example below).
 
 ## Usage
 
@@ -44,7 +44,7 @@ import { read } from 'to-vfile'
 const file = await remark()
     .use(remarkHeadlineEdit, {
         maxDepth: 2, 
-        urlPattern: 'edit?range={start}-{end}', 
+        urlPattern: 'edit?lines={start}-{end}', 
         linkText: '[ edit ]'
     })
     .use(remarkRehype)
@@ -57,19 +57,19 @@ console.log(file.value)
 then running `node example.js` yields:
 
 ```html
-<h1>Level 1 Headline 1<a href="edit?range=1-16">[ edit ]</a></h1>
+<h1>Level 1 Headline 1<a href="edit?lines=1-16">[ edit ]</a></h1>
 <p>some text</p>
-<h2>Level 2 Headline 1<a href="edit?range=5-12">[ edit ]</a></h2>
+<h2>Level 2 Headline 1<a href="edit?lines=5-12">[ edit ]</a></h2>
 <p>some text</p>
 <h3>Level 3 Headline 1</h3>
 <p>some text</p>
-<h2>Level 2 Headline 2<a href="edit?range=13-16">[ edit ]</a></h2>
+<h2>Level 2 Headline 2<a href="edit?lines=13-16">[ edit ]</a></h2>
 <p>some text</p>
-<h1>Level 1 Headline 2<a href="edit?range=17-19">[ edit ]</a></h1>
+<h1>Level 1 Headline 2<a href="edit?lines=17-19">[ edit ]</a></h1>
 <p>some text</p>
 ```
 
-## Usage with remark-CLI
+## Use with remark-CLI
 
 ```bash
 npm install remark-cli
@@ -89,7 +89,7 @@ unified().use(remarkHeadlineEdit[, options])
 
 * `maxDepth` (`integer`, optional) — maximum depth of headline hierarchy. Default value is `6`
 
-* `urlPattern` (`strign`, optional) - pattern to generate the link. Placeholders are `{start}` and `{end}`. Default pattern is `edit/{start}/{end}`
+* `urlPattern` (`string`, optional) - pattern to generate the link. Placeholders are `{start}` and `{end}`. Default pattern is `edit/{start}/{end}`
 
 * `linkText` (`string`, optional) - text used for the link. Default is `Edit`
 

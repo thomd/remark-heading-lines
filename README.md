@@ -11,25 +11,25 @@ An exemplary usecase for this plugin is to generate **wikipedia**-like **edit** 
 Say we have the following file `example.md`:
 
 ```markdown
-# Level 1 Headline 1
+# Level 1
 
-some text
+paragraph
 
-## Level 2 Headline 1
+## Level 2
 
-some text
+paragraph
 
-### Level 3 Headline 1
+### Level 3
 
-some text
+paragraph
 
-## Level 2 Headline 2
+## Level 2
 
-some text
+paragraph
 
-# Level 1 Headline 2
+# Level 1
 
-some text
+paragraph
 ```
 
 and a module `example.js`:
@@ -57,16 +57,16 @@ console.log(file.value)
 then running `node example.js` yields:
 
 ```html
-<h1>Level 1 Headline 1<a href="edit?lines=1-16">[ edit ]</a></h1>
-<p>some text</p>
-<h2>Level 2 Headline 1<a href="edit?lines=5-12">[ edit ]</a></h2>
-<p>some text</p>
-<h3>Level 3 Headline 1</h3>
-<p>some text</p>
-<h2>Level 2 Headline 2<a href="edit?lines=13-16">[ edit ]</a></h2>
-<p>some text</p>
-<h1>Level 1 Headline 2<a href="edit?lines=17-19">[ edit ]</a></h1>
-<p>some text</p>
+<h1>Level 1<a href="edit?lines=1-16">[ edit ]</a></h1>
+<p>paragraph</p>
+<h2>Level 2<a href="edit?lines=5-12">[ edit ]</a></h2>
+<p>paragraph</p>
+<h3>Level 3</h3>
+<p>paragraph</p>
+<h2>Level 2<a href="edit?lines=13-16">[ edit ]</a></h2>
+<p>paragraph</p>
+<h1>Level 1<a href="edit?lines=17-19">[ edit ]</a></h1>
+<p>paragraph</p>
 ```
 
 ## Use with remark-CLI

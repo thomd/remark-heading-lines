@@ -1,6 +1,6 @@
 {
   "name": "remark-headline-edit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Add a wikipedia-like edit link after each headline respecting the headline hierarchy",
   "keywords": [
     "remark-plugin",

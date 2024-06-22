@@ -1,4 +1,4 @@
-name: main
+name: plugin-test
 on:
   - pull_request
   - push

@@ -95,4 +95,4 @@ unified().use(remarkHeadlineEdit[, options])
 
 
 [remark]: https://github.com/remarkjs/remark
-[build-badge]: https://github.com/thomd/remark-headline-edit/workflows/main/badge.svg
+[build-badge]: https://github.com/thomd/remark-headline-edit/workflows/plugin-test/badge.svg

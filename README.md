@@ -1,5 +1,7 @@
 # remark-headline-edit
 
+[![Build][build-badge]][build]
+
 [remark][remark] plugin which which generates additional links at each `heading` type containing the start- and end-line of each headline section respecting the headline hierarchy.
 
 My primary usecase for this plugin is to generate **Wikipedia**-like **edit** links besides each section headline (see example below).
@@ -85,4 +87,4 @@ unified().use(remarkHeadlineEdit[, options])
 
 
 [remark]: https://github.com/remarkjs/remark
-
+[build-badge]: https://github.com/thomd/remark-headline-edit/workflows/main/badge.svg

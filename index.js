@@ -25,7 +25,17 @@ const remarkHeadlineRanges = () => {
             setHeadingSectionEnd(node, index, parent, depth)
         })
         visit(tree, 'heading', (node, index, parent) => {
-            console.log(toString(node), node.hierarchy.start.line, node.hierarchy.end.line)
+            const link = {
+                type: 'link',
+                url: `edit/${node.hierarchy.start.line}/${node.hierarchy.end.line}`,
+                children: [
+                    {
+                        type: 'text',
+                        value: '[ edit ]'
+                    }
+                ]
+            }
+            node.children.splice(index + 1, 0, link)
         })
     }
 }

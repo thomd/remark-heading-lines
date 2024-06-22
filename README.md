@@ -69,11 +69,19 @@ then running `node example.js` yields:
 <p>some text</p>
 ```
 
+## Usage with remark-CLI
+
+```bash
+npm install remark-cli
+remark example.md --use remark-headline-edit
+remark example.md --use remark-headline-edit --use remark-html
+```
+
 ## API
 
 The default export is `remarkHeadlineEdit`.
 
-```
+```js
 unified().use(remarkHeadlineEdit[, options])
 ```
 

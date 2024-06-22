@@ -1,6 +1,6 @@
 # remark-headline-edit
 
-[![Build][build-badge]][build]
+![Build][build-badge]
 
 [remark][remark] plugin which which generates additional links at each `heading` type containing the start- and end-line of each headline section respecting the headline hierarchy.
 

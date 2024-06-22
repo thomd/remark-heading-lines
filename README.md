@@ -2,7 +2,7 @@
 
 ![Build][build-badge]
 
-[remark][remark] plugin which which generates additional links at each `heading` type containing the start- and end-line of each headline section respecting its hierarchy.
+`remark-headline-edit` is a [remark][remark] plugin which generates links after each `heading` type containing the start- and end-line of each headline section respecting its hierarchy.
 
 An exemplary usecase for this plugin is to generate **wikipedia**-like **edit** links besides each headline (see example below).
 

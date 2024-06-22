@@ -1,4 +1,4 @@
-# remark-headline-ranges
+# remark-headline-edit
 
 [remark][remark] plugin which which generates additional links at each `heading` type containing the start- and end-line of each headline section respecting the headline hierarchy.
 
@@ -34,13 +34,13 @@ and a module `example.js`:
 
 ```js
 import { remark } from 'remark'
-import remarkHeadlineRanges from 'remark-headline-ranges'
+import remarkHeadlineEdit from 'remark-headline-edit'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import { read } from 'to-vfile'
 
 const file = await remark()
-    .use(remarkHeadlineRanges, {
+    .use(remarkHeadlineEdit, {
         maxDepth: 2, 
         urlPattern: 'edit?range={start}-{end}', 
         linkText: '[ edit ]'
@@ -69,10 +69,10 @@ then running `node example.js` yields:
 
 ## API
 
-The default export is `remarkHeadlineRanges`.
+The default export is `remarkHeadlineEdit`.
 
 ```
-unified().use(remarkHeadlineRanges[, options])
+unified().use(remarkHeadlineEdit[, options])
 ```
 
 ### Options

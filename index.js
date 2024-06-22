@@ -2,7 +2,7 @@ import { visit } from 'unist-util-visit'
 import { toString } from 'mdast-util-to-string'
 import { findAfter } from 'unist-util-find-after'
 
-const remarkHeadlineRanges = (opts) => {
+const remarkHeadlineEdit = (opts) => {
     const defaultOptions = {
         maxDepth: 6,
         urlPattern: 'edit/{start}/{end}',
@@ -50,5 +50,5 @@ const remarkHeadlineRanges = (opts) => {
         })
     }
 }
-export default remarkHeadlineRanges
+export default remarkHeadlineEdit
 

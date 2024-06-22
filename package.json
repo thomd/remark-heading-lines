@@ -15,18 +15,17 @@
     "unist-util-find-after": "^5.0.0",
     "unist-util-visit": "^5.0.0"
   },
-  "publishConfig": {
-    "access": "public"
+  "devDependencies": {
+    "c8": "^10.1.2",
+    "remark": "^15.0.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/thomd/remark-headline-edit"
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "c8 --100 --reporter lcov node --conditions development test/index.js"
   },
-  "author": {
-    "email": "thomduerr@gmail.com",
-    "name": "Thomas Dürr"
-  },
-  "bugs": {
-    "url": "https://github.com/thomd/remark-headline-edit/issues"
-  }
+  "author": "Thomas Dürr <thomduerr@gmail.com>",
+  "repository": "https://github.com/thomd/remark-headline-edit",
+  "bugs": "https://github.com/thomd/remark-headline-edit/issues"
 }

@@ -45,10 +45,10 @@ import { read } from 'to-vfile'
 
 const file = await remark()
     .use(remarkHeadlineEdit, {
-        position: 'append',
+        position: 'after',
         maxDepth: 2, 
-        urlPattern: 'edit?lines={start}-{end}', 
-        linkText: '[ edit ]'
+        urlPattern: 'edit?line={start}-{end}', 
+        linkText: 'edit'
     })
     .use(remarkRehype)
     .use(rehypeStringify)
@@ -60,15 +60,15 @@ console.log(file.value)
 then running `node example.js` yields:
 
 ```html
-<h1>Level 1<a href="edit?lines=1-16">[ edit ]</a></h1>
+<div class="h1"><h1>Level 1</h1><a href="edit?line=1-16">edit</a></div>
 <p>paragraph</p>
-<h2>Level 2<a href="edit?lines=5-12">[ edit ]</a></h2>
+<div class="h2"><h2>Level 2</h2><a href="edit?line=5-12">edit</a></div>
 <p>paragraph</p>
 <h3>Level 3</h3>
 <p>paragraph</p>
-<h2>Level 2<a href="edit?lines=13-16">[ edit ]</a></h2>
+<div class="h2"><h2>Level 2</h2><a href="edit?line=13-16">edit</a></div>
 <p>paragraph</p>
-<h1>Level 1<a href="edit?lines=17-19">[ edit ]</a></h1>
+<div class="h1"><h1>Level 1</h1><a href="edit?line=17-19">edit</a></div>
 <p>paragraph</p>
 ```
 
@@ -97,8 +97,6 @@ unified().use(remarkHeadlineEdit[, options])
 * `urlPattern` (`string`, optional) - pattern to generate the link. Placeholders are `{start}` and `{end}`. Default pattern is `edit/{start}/{end}`
 
 * `linkText` (`string`, optional) - text used for the link. Default is `Edit`
-
-* `wrap` (`boolean`, optional) - wrap headline and link within a `div` tag. Default is `false`.
 
 [remark]: https://github.com/remarkjs/remark
 [build-badge]: https://github.com/thomd/remark-headline-edit/workflows/plugin-test/badge.svg

@@ -2,11 +2,11 @@
 
 ![Build][build-badge]
 
-`remark-headline-edit` is a [remark][remark] plugin which generates links after each `heading` type containing the start- and end-line of each headline section respecting its hierarchy. The lines are related to the source markdown file, not the the target markdown file.
+`remark-headline-edit` is a [remark][remark] plugin which generates links after/before each headline containing the start- and end-line of each headline section respecting its hierarchy. The lines are related to the source markdown file, not to the target markdown file.
 
-This plugin is primarily intended to be used together with `remark-rehype` as markdown does not allow sophisticated positioning of the edit-link.
+This plugin is primarily intended to be used together with `remark-rehype`.
 
-An exemplary usecase for this plugin is to generate **wikipedia**-like **edit** links besides each headline (see example below).
+An exemplary usecase for this plugin is to generate **wikipedia**-like **edit** links beside each headline (see example below).
 
 ## Usage
 

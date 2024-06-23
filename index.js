@@ -1,5 +1,4 @@
 import { visit } from 'unist-util-visit'
-import { toString } from 'mdast-util-to-string'
 import { findAfter } from 'unist-util-find-after'
 
 const remarkHeadlineEdit = (opts) => {

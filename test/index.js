@@ -1,65 +1,58 @@
 import assert from 'node:assert/strict'
-import fs from 'node:fs/promises'
+import fs from 'node:fs'
+import path from 'node:path'
 import test from 'node:test'
-import { fileURLToPath } from 'node:url'
 import { remark } from 'remark'
 import remarkHeadlineEdit from '../index.js'
+import remarkRehype from 'remark-rehype'
+import rehypeStringify from 'rehype-stringify'
 
 test('remark-headline-edit', async function (t) {
-  await t.test('should expose the public api', async function () {
-      assert.deepEqual(Object.keys(await import('../index.js')).sort(), [
-      'default'
-    ])
-  })
+    await t.test('should expose the public api', async function () {
+        assert.deepEqual(Object.keys(await import('../index.js')).sort(), [
+            'default'
+        ])
+    })
 })
 
 test('fixtures', async function (t) {
-  const root = new URL('fixtures/', import.meta.url)
-  const fixtures = await fs.readdir(root)
-  let index = -1
+    const root = './test/fixtures/'
+    const fixtures = fs.readdirSync(root, { withFileTypes: true }).filter(item => item.isDirectory()).map(item => item.name)
+    for (let fixture of fixtures) {
+        await t.test(fixture, async function () {
+            const files = fs.readdirSync(path.join(root, fixture), { withFileTypes: true }).filter(item => !item.isDirectory()).map(item => item.name)
+            const inputFile = path.join(root, fixture, files.find(elem => elem === 'input.md'))
+            const outputFile = path.join(root, fixture, files.find(elem => elem.startsWith('output')))
+            const outputType = path.extname(outputFile)
+            const configFile = path.join(root, fixture, files.find(elem => elem === 'config.json'))
 
-  while (++index < fixtures.length) {
-    const folder = fixtures[index]
+            let config = JSON.parse(String(fs.readFileSync(configFile)))
+            let input = String(fs.readFileSync(inputFile))
+            let output = String(fs.readFileSync(outputFile))
 
-    if (folder.startsWith('.')) continue
+            if (outputType === '.md') {
+                try {
+                    const file = await remark()
+                        .use(remarkHeadlineEdit, config)
+                        .process(input)
+                    assert.equal(String(file), output)
+                } catch (error) {
+                    throw error
+                }
+            }
 
-    await t.test(folder, async function () {
-      const folderUrl = new URL(folder + '/', root)
-      const inputUrl = new URL('input.md', folderUrl)
-      const outputUrl = new URL('output.md', folderUrl)
-      const configUrl = new URL('config.json', folderUrl)
-
-      let config
-      let output
-
-      try {
-        config = JSON.parse(String(await fs.readFile(configUrl)))
-      } catch {}
-
-      try {
-        output = String(await fs.readFile(outputUrl))
-      } catch {
-        output = ''
-      }
-
-      try {
-        const file = await remark()
-          .use(remarkHeadlineEdit, config)
-          .process({
-            cwd: fileURLToPath(folderUrl),
-            path: config && config.withoutFilePath ? undefined : 'readme.md',
-            value: await fs.readFile(inputUrl)
-          })
-
-        assert.equal(String(file), output)
-      } catch (error) {
-        if (folder.indexOf('fail-') !== 0) {
-          throw error
-        }
-
-        const message = folder.slice(5).replace(/-/g, ' ')
-        assert.match(String(error).replace(/`/g, ''), new RegExp(message, 'i'))
-      }
-    })
-  }
+            if (outputType === '.html') {
+                try {
+                    const file = await remark()
+                        .use(remarkHeadlineEdit, config)
+                        .use(remarkRehype)
+                        .use(rehypeStringify)
+                        .process(input)
+                    assert.equal(String(file), output)
+                } catch (error) {
+                    throw error
+                }
+            }
+        })
+    }
 })

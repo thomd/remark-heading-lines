@@ -48,7 +48,8 @@ const file = await remark()
         position: 'after',
         maxDepth: 2, 
         urlPattern: 'edit?line={start}-{end}', 
-        linkText: 'edit'
+        linkText: 'edit',
+        className: 'h{depth}'
     })
     .use(remarkRehype)
     .use(rehypeStringify)
@@ -97,6 +98,8 @@ unified().use(remarkHeadlineEdit[, options])
 * `urlPattern` (`string`, optional) - pattern to generate the link. Placeholders are `{start}` and `{end}`. Default pattern is `edit/{start}/{end}`
 
 * `linkText` (`string`, optional) - text used for the link. Default is `Edit`
+
+* `className` (`string`, optional) - css class to be added to the `div` wrapper when using position `after` or `before`. Placeholder is `{depth}`. Default is no css class.
 
 [remark]: https://github.com/remarkjs/remark
 [build-badge]: https://github.com/thomd/remark-headline-edit/workflows/plugin-test/badge.svg

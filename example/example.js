@@ -9,7 +9,8 @@ const file = await remark()
         position: 'after',
         maxDepth: 2,
         urlPattern: 'edit?line={start}-{end}',
-        linkText: 'edit'
+        linkText: 'edit',
+        className: 'h{depth}'
     })
     .use(remarkRehype)
     .use(rehypeStringify)

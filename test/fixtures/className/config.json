@@ -1,4 +1,4 @@
 {
   "position": "after",
-  "className": "headline"
+  "className": "h-{depth}"
 }

@@ -6,7 +6,8 @@ const remarkHeadlineEdit = (opts) => {
         position: 'append',
         maxDepth: 6,
         urlPattern: 'edit/{start}/{end}',
-        linkText: 'Edit'
+        linkText: 'Edit',
+        className: null
     }
     const options = { ...defaultOptions, ...opts }
     return (tree) => {
@@ -45,11 +46,17 @@ const remarkHeadlineEdit = (opts) => {
                     node.children.splice(0, 0, link)
                 }
                 if (options.position == 'after') {
-                    const wrapper = { type: 'div', data: { hName: 'div', hProperties: { className: 'h' + depth } }, children: [node, link] }
+                    const wrapper = { type: 'div', data: { hName: 'div' }, children: [node, link] }
+                    if (options.className !== null) {
+                        wrapper.data.hProperties = { className: options.className.replace('{depth}', depth) }
+                    }
                     parent.children.splice(index, 1, wrapper)
                 }
                 if (options.position == 'before') {
-                    const wrapper = { type: 'div', data: { hName: 'div', hProperties: { className: 'h' + depth } }, children: [link, node] }
+                    const wrapper = { type: 'div', data: { hName: 'div' }, children: [link, node] }
+                    if (options.className !== null) {
+                        wrapper.data.hProperties = { className: options.className.replace('{depth}', depth) }
+                    }
                     parent.children.splice(index, 1, wrapper)
                 }
             }

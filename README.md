@@ -2,11 +2,11 @@
 
 ![Build][build-badge]
 
-`remark-headline-edit` is a [remark][remark] plugin which generates links after/before each headline containing the start- and end-line of each headline section respecting its hierarchy. The lines are related to the source markdown file, not to the target markdown file.
+`remark-headline-edit` is a [remark][remark] plugin which generates links after or before each headline containing the start- and end-line of each headline section respecting its hierarchy. The lines refer to the source markdown file, not to the target markdown file.
 
 This plugin is primarily intended to be used together with `remark-rehype`.
 
-An exemplary usecase for this plugin is to generate **wikipedia**-like **edit** links beside each headline (see example below).
+An exemplary usecase for this plugin is to generate **wikipedia**-like **edit** links beside headlines (see example below).
 
 ## Usage
 
@@ -46,8 +46,8 @@ import { read } from 'to-vfile'
 const file = await remark()
     .use(remarkHeadlineEdit, {
         position: 'after',
-        maxDepth: 2, 
-        urlPattern: 'edit?line={start}-{end}', 
+        maxDepth: 2,
+        urlPattern: 'edit?line={start}-{end}',
         linkText: 'edit',
         className: 'h{depth}'
     })
@@ -78,7 +78,7 @@ then running `node example.js` yields:
 ```bash
 npm install remark-cli
 remark example.md --use remark-headline-edit
-remark example.md --use remark-headline-edit --use remark-html
+remark example.md --use remark-headline-edit --use remark-rehype -use rehype-stringify
 ```
 
 ## API
@@ -91,15 +91,15 @@ unified().use(remarkHeadlineEdit[, options])
 
 ### Options
 
-* `position` (`string`, optional) - position of the link in the DOM. Possible values are `append` (put link inside `h`-tag at last index), `prepend` (put link inside `h`-tag at first index), `after` (put link after the `h`-tag) and `before` (put link before the `h`-tag). The `after` and `before` positions are wrapped in a `div` tag and require `remark-rehype`. Default is `append`.
+* `position` (`string`, optional) — position of the link relative to the headline. Possible values are `append` (put link inside `h`-tag at last index), `prepend` (put link inside `h`-tag at first index), `after` (put link after the `h`-tag) and `before` (put link before the `h`-tag). The `after` and `before` positions are wrapped in a `div` tag and require `remark-rehype`. Default is `append`.
 
-* `maxDepth` (`integer`, optional) — maximum depth of headline hierarchy. Default value is `6`
+* `maxDepth` (`integer`, optional) — maximum depth of headline hierarchy to render links. Default value is `6`.
 
-* `urlPattern` (`string`, optional) - pattern to generate the link. Placeholders are `{start}` and `{end}`. Default pattern is `edit/{start}/{end}`
+* `urlPattern` (`string`, optional) — pattern to generate the link. Placeholders are `{start}` and `{end}`. Default pattern is `edit/{start}/{end}`.
 
-* `linkText` (`string`, optional) - text used for the link. Default is `Edit`
+* `linkText` (`string`, optional) — text used for the link. Default text is `Edit`.
 
-* `className` (`string`, optional) - css class to be added to the `div` wrapper when using position `after` or `before`. Placeholder is `{depth}`. Default is no css class.
+* `className` (`string`, optional) — style class to be added to the `div` wrapper when using position `after` or `before`. Placeholder is `{depth}`. Default is no style class.
 
 [remark]: https://github.com/remarkjs/remark
 [build-badge]: https://github.com/thomd/remark-headline-edit/workflows/plugin-test/badge.svg

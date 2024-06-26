@@ -102,4 +102,4 @@ unified().use(remarkHeadingLines[, options])
 * `className` (`string`, optional) — style class to be added to the `div` wrapper when using position `after` or `before`. Placeholder is `{depth}`. Default is no style class.
 
 [remark]: https://github.com/remarkjs/remark
-[build-badge]: https://github.com/thomd/remark-heading-line/workflows/plugin-test/badge.svg
+[build-badge]: https://github.com/thomd/remark-heading-lines/workflows/plugin-test/badge.svg

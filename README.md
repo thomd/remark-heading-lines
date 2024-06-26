@@ -1,12 +1,12 @@
-# remark-headline-edit
+# remark-heading-lines
 
 ![Build][build-badge]
 
-`remark-headline-edit` is a [remark][remark] plugin which generates links after or before each headline containing the start- and end-line of each headline section respecting its hierarchy. The lines refer to the source markdown file, not to the target markdown file.
+`remark-heading-lines` is a [remark][remark] plugin which adds a link at a headline containing the start- and end-line of a headline section respecting its hierarchy. The lines refer to the source markdown file, not to the target markdown file or html file.
 
 This plugin is primarily intended to be used together with `remark-rehype`.
 
-An exemplary usecase for this plugin is to generate **wikipedia**-like **edit** links beside headlines (see example below).
+An exemplary usecase for this plugin is to generate **wikipedia**-like **edit** links beside headlines (see the example below).
 
 ## Usage
 
@@ -38,13 +38,13 @@ and a module `example.js`:
 
 ```js
 import { remark } from 'remark'
-import remarkHeadlineEdit from 'remark-headline-edit'
+import remarkHeadingLines from 'remark-heading-lines'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import { read } from 'to-vfile'
 
 const file = await remark()
-    .use(remarkHeadlineEdit, {
+    .use(remarkHeadingLines, {
         position: 'after',
         maxDepth: 2,
         urlPattern: 'edit?line={start}-{end}',
@@ -77,16 +77,16 @@ then running `node example.js` yields:
 
 ```bash
 npm install remark-cli
-remark example.md --use remark-headline-edit
-remark example.md --use remark-headline-edit --use remark-rehype -use rehype-stringify
+remark example.md --use remark-heading-lines
+remark example.md --use remark-heading-lines --use remark-rehype -use rehype-stringify
 ```
 
 ## API
 
-The default export is `remarkHeadlineEdit`.
+The default export is `remarkHeadingLines`.
 
 ```js
-unified().use(remarkHeadlineEdit[, options])
+unified().use(remarkHeadingLines[, options])
 ```
 
 ### Options
@@ -102,4 +102,4 @@ unified().use(remarkHeadlineEdit[, options])
 * `className` (`string`, optional) — style class to be added to the `div` wrapper when using position `after` or `before`. Placeholder is `{depth}`. Default is no style class.
 
 [remark]: https://github.com/remarkjs/remark
-[build-badge]: https://github.com/thomd/remark-headline-edit/workflows/plugin-test/badge.svg
+[build-badge]: https://github.com/thomd/remark-heading-line/workflows/plugin-test/badge.svg

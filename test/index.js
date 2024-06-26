@@ -3,11 +3,11 @@ import fs from 'node:fs'
 import path from 'node:path'
 import test from 'node:test'
 import { remark } from 'remark'
-import remarkHeadlineEdit from '../index.js'
+import remarkHeadingLines from '../index.js'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 
-test('remark-headline-edit', async function (t) {
+test('remark-heading-lines', async function (t) {
     await t.test('should expose the public api', async function () {
         assert.deepEqual(Object.keys(await import('../index.js')).sort(), [
             'default'
@@ -33,7 +33,7 @@ test('fixtures', async function (t) {
             if (outputType === '.md') {
                 try {
                     const file = await remark()
-                        .use(remarkHeadlineEdit, config)
+                        .use(remarkHeadingLines, config)
                         .process(input)
                     assert.equal(String(file), output)
                 } catch (error) {
@@ -44,7 +44,7 @@ test('fixtures', async function (t) {
             if (outputType === '.html') {
                 try {
                     const file = await remark()
-                        .use(remarkHeadlineEdit, config)
+                        .use(remarkHeadingLines, config)
                         .use(remarkRehype)
                         .use(rehypeStringify)
                         .process(input)

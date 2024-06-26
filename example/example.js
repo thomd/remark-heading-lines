@@ -1,11 +1,11 @@
 import { remark } from 'remark'
-import remarkHeadlineEdit from '../index.js'
+import remarkHeadingLines from '../index.js'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import { read } from 'to-vfile'
 
 const file = await remark()
-    .use(remarkHeadlineEdit, {
+    .use(remarkHeadingLines, {
         position: 'after',
         maxDepth: 2,
         urlPattern: 'edit?line={start}-{end}',

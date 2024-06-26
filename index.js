@@ -1,7 +1,7 @@
 import { visit } from 'unist-util-visit'
 import { findAfter } from 'unist-util-find-after'
 
-const remarkHeadlineEdit = (opts) => {
+const remarkHeadingLines = (opts) => {
     const defaultOptions = {
         position: 'append',
         maxDepth: 6,
@@ -63,5 +63,5 @@ const remarkHeadlineEdit = (opts) => {
         })
     }
 }
-export default remarkHeadlineEdit
+export default remarkHeadingLines
 

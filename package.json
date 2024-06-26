@@ -1,7 +1,7 @@
 {
-  "name": "remark-headline-edit",
+  "name": "remark-heading-lines",
   "version": "1.0.0",
-  "description": "Add a wikipedia-like edit link after each headline respecting the headline hierarchy",
+  "description": "remark plugin to add a link at a headline containing start- and end-lines of a heading section",
   "keywords": [
     "remark-plugin",
     "remark",
@@ -30,7 +30,7 @@
   "author": "Thomas Dürr <thomduerr@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thomd/remark-headline-edit.git"
+    "url": "git+https://github.com/thomd/remark-heading-lines.git"
   },
-  "bugs": "https://github.com/thomd/remark-headline-edit/issues"
+  "bugs": "https://github.com/thomd/remark-heading-lines/issues"
 }

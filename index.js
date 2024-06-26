@@ -14,12 +14,12 @@ const remarkHeadingLines = (opts) => {
         const setHeadingSectionEnd = (node, index, parent, depth) => {
             let nextHeading = findAfter(parent, index, node => node.type == 'heading' && node.depth <= depth)
             if (nextHeading != undefined) {
-                node.hierarchy.end.line = nextHeading.position.end.line - 1
+                node.data.end.line = nextHeading.position.end.line - 1
             } else {
                 depth = depth - 1
                 if (depth == 0) {
                     nextHeading = parent.children.at(-1)
-                    node.hierarchy.end.line = nextHeading.position.end.line
+                    node.data.end.line = nextHeading.position.end.line
                 } else {
                     setHeadingSectionEnd(node, index, parent, depth)
                 }
@@ -28,15 +28,15 @@ const remarkHeadingLines = (opts) => {
         visit(tree, 'heading', (node, index, parent) => {
             let { depth } = node
             if (depth <= options.maxDepth) {
-                node.hierarchy = { start: {}, end: {} }
-                node.hierarchy.start.line = node.position.start.line
+                node.data = { start: {}, end: {} }
+                node.data.start.line = node.position.start.line
                 setHeadingSectionEnd(node, index, parent, depth)
             }
         })
         visit(tree, 'heading', (node, index, parent) => {
             let { depth } = node
             if (depth <= options.maxDepth) {
-                const url = options.urlPattern.replace('{start}', node.hierarchy.start.line).replace('{end}', node.hierarchy.end.line)
+                const url = options.urlPattern.replace('{start}', node.data.start.line).replace('{end}', node.data.end.line)
                 const type = 'link'
                 const link = { type, url, children: [{ type: 'text', value: options.linkText }] }
                 if (options.position == 'append') {

@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "c8": "^10.1.2",
+    "prettier": "^3.3.2",
     "rehype-stringify": "^10.0.0",
     "remark": "^15.0.1",
     "remark-rehype": "^11.1.0",

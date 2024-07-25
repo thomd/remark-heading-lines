@@ -2,9 +2,7 @@
 
 ![Build][build-badge]
 
-`remark-heading-lines` is a [remark][remark] plugin which adds a link at a headline containing the start- and end-line of a headline section respecting its hierarchy. The lines refer to the source markdown file, not to the target markdown file or html file.
-
-This plugin is primarily intended to be used together with `remark-rehype`.
+`remark-heading-lines` is a [remark][remark] plugin which adds a link at a headline containing the **start-** and **end-line** of a headline section respecting its hierarchy. The lines refer to the source markdown file.
 
 An exemplary usecase for this plugin is to generate **wikipedia**-like **edit** links beside headlines (see the example below).
 

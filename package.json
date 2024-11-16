@@ -1,5 +1,5 @@
 {
-  "name": "remark-heading-lines",
+  "name": "@thomd/remark-heading-lines",
   "version": "1.0.0",
   "description": "remark plugin to add a link at a headline containing start- and end-lines of a heading section",
   "keywords": [
